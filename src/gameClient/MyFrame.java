@@ -28,11 +28,12 @@ import javax.swing.JPanel;
 
 
 /**
- * This class represents a very simple GUI class to present a
- * game on a graph - you are welcome to use this class - yet keep in mind
- * that the code is not well written in order to force you improve the
- * code and not to take it "as is".
- *
+ * This class represents a very simple GUI class to presents the graph of the game, the location of the agents
+ * and the pokemons as the game is running.
+ * we choose the agents to be the pokemon trainer called "may".
+ * therse two types of pokemons : skitty (type -1) and zapdos (type 1)
+ * in the down left corner you can see the number of moves the agents are making, the Grade and the time that
+ * has left to the end of the game
  */
 public class MyFrame extends JFrame{
 	private Arena _ar;
@@ -56,7 +57,7 @@ public class MyFrame extends JFrame{
 		MyFrame(String a) throws IOException {
 		super(a);
 
-
+		//re-size the screen when user will enlarge and reduce the screen with the mouse
 		this.addComponentListener(new ComponentAdapter() {
 			@Override
 			public void componentResized(ComponentEvent e) {
@@ -169,17 +170,18 @@ public class MyFrame extends JFrame{
 		}
 	}
 	private void drawAgants(Graphics g) {
-		List<CL_Agent> rs = _ar.getAgents();
+		List<CL_Agent> ag = _ar.getAgents();
 
 		int i=0;
-		while(rs!=null && i<rs.size()) {
-			geo_location c = rs.get(i).getLocation();
+		while(ag!=null && i<ag.size()) {
+			geo_location c = ag.get(i).getLocation();
 			int r=8;
 			i++;
 			if(c!=null) {
 
 				geo_location fp = this._w2f.world2frame(c);
 				g.drawImage(may, (int)fp.x()-r, (int)fp.y()-r, 6*r, 6*r, this);
+				//g.drawString(ag.get(i).get_value(), (int)fp.x()-10,(int)fp.y()-10);
 			}
 		}
 	}

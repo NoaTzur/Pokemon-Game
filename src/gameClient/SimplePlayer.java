@@ -3,6 +3,10 @@ package gameClient;
 import javazoom.jl.player.*;
 import java.io.FileInputStream;
 
+/**
+ * Simple player i took from my tutor (yael), it will play the pokemon theme in english, while the game is running
+ */
+
 public class SimplePlayer implements Runnable
 {
     private String path;

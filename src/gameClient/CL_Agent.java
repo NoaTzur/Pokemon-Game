@@ -4,10 +4,16 @@ import api.*;
 import gameClient.util.Point3D;
 import org.json.JSONObject;
 
+/**
+ * This class representing an agent, containing helpful information that we "take" from the game server about the agent such as:
+ * agent ID
+ * agent speed
+ * update the agent with new information as speed
+ * and so on
+ */
+
 public class CL_Agent {
-	public static final double EPS = 0.0001;
-	private static int _count = 0;
-	private static int _seed = 3331;
+
 	private int _id;
 	private int pokSrc;
 	private geo_location _pos;
@@ -15,20 +21,9 @@ public class CL_Agent {
 	private edge_data _curr_edge;
 	private node_data _curr_node;
 	private directed_weighted_graph _gg;
-	private CL_Pokemon _curr_fruit;
-	private long _sg_dt;
-	private edge_data currEdge = new edgeData(0,0,5);
 
-	private long speedTime;
-	private double distToPok;
+
 	private double _value;
-
-	public void setCurrEdge(edge_data currEdge){
-		this.currEdge = currEdge;
-	}
-	public edge_data getCurrEdge(){
-		return this.currEdge;
-	}
 
 	public CL_Agent(directed_weighted_graph g, int start_node) {
 		_gg = g;
@@ -42,7 +37,6 @@ public class CL_Agent {
 	public void update(String json) {
 		JSONObject line;
 		try {
-			// "GameServer":{"graph":"A0","pokemons":3,"agents":1}}
 			line = new JSONObject(json);
 			JSONObject ttt = line.getJSONObject("Agent");
 			int id = ttt.getInt("id");
@@ -108,33 +102,17 @@ public class CL_Agent {
 		this._curr_node = _gg.getNode(src);
 	}
 
-	public boolean isMoving() {
-		return this._curr_edge != null;
-	}
-
 	public String toString() {
 		return toJSON();
 	}
 
-	public String toString1() {
-		String ans = "" + this.getID() + "," + _pos + ", " + isMoving() + "," + this.getValue();
-		return ans;
-	}
 
 	public int getID() {
-		// TODO Auto-generated method stub
 		return this._id;
 	}
 
 	public geo_location getLocation() {
-		// TODO Auto-generated method stub
 		return _pos;
-	}
-
-
-	public double getValue() {
-		// TODO Auto-generated method stub
-		return this._value;
 	}
 
 
@@ -156,43 +134,11 @@ public class CL_Agent {
 		this._speed = v;
 	}
 
-	public CL_Pokemon get_curr_fruit() {
-		return _curr_fruit;
-	}
-
-	public void set_curr_fruit(CL_Pokemon curr_fruit) {
-		this._curr_fruit = curr_fruit;
-	}
-
-	public void set_SDT(long ddtt) {
-		long ddt = ddtt;
-		if (this._curr_edge != null) {
-			double w = get_curr_edge().getWeight();
-			geo_location dest = _gg.getNode(get_curr_edge().getDest()).getLocation();
-			geo_location src = _gg.getNode(get_curr_edge().getSrc()).getLocation();
-			double de = src.distance(dest);
-			double dist = _pos.distance(dest);
-			if (this.get_curr_fruit().get_edge() == this.get_curr_edge()) {
-				dist = _curr_fruit.getLocation().distance(this._pos);
-			}
-			double norm = dist / de;
-			double dt = w * norm / this.getSpeed();
-			ddt = (long) (1000.0 * dt);
-		}
-		this.set_sg_dt(ddt);
-	}
 
 	public edge_data get_curr_edge() {
 		return this._curr_edge;
 	}
 
-	public long get_sg_dt() {
-		return this._sg_dt;
-	}
-
-	public void set_sg_dt(long _sg_dt) {
-		this._sg_dt = _sg_dt;
-	}
 
 	public void setPokSrc(int src) {
 		this.pokSrc = src;
@@ -201,38 +147,9 @@ public class CL_Agent {
 	public int getPokSrc() {
 		return this.pokSrc;
 	}
-
-	public long getSpeedTime() {
-		return this.speedTime;
+	public String get_value(){
+		String val = String.valueOf(this._value);
+		return val;
 	}
-
-	public void setSpeedTime(double distance, double speed) {
-		this.speedTime = (long) (distance / speed);
-	}
-
-	public void calcDist(CL_Pokemon pok, dw_graph_algorithms aa) {
-		distToPok = aa.shortestPathDist(this._curr_node.getKey(), pok.get_edge().getSrc());
-	}
-
-	public double getDistToPok() {
-		return this.distToPok;
-	}
-
-	public void set_curr_edge(int src, int dest, double w) {
-		this._curr_edge = new edgeData(src, dest, w);
-	}
-
-	public boolean setNextNode(edge_data dest) {
-		boolean ans = false;
-		int src = this._curr_node.getKey();
-		this._curr_edge = dest;
-		if (_curr_edge != null) {
-			ans = true;
-		} else {
-			_curr_edge = null;
-		}
-		return ans;
-	}
-
 
 }

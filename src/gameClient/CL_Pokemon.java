@@ -4,13 +4,20 @@ import api.edge_data;
 import api.geo_location;
 import api.nodeLocation;
 import gameClient.util.Point3D;
-import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 
-import java.nio.channels.CancelledKeyException;
 import java.util.Comparator;
 
-public class CL_Pokemon implements Comparable<CL_Pokemon> {
+import static java.lang.Double.POSITIVE_INFINITY;
+
+/**
+ * This class representing a pokemon, containing helpful information that we "take" from the game server about the agent such as:
+ * pokemon value (how much he cost for catching)
+ * on what edge does it placed in the game graph
+ * we has added 2 things to this written class - 2 comparators
+ */
+
+public class CL_Pokemon {
 	private edge_data _edge;
 	private double _value;
 	private int _type;
@@ -20,11 +27,9 @@ public class CL_Pokemon implements Comparable<CL_Pokemon> {
 	private geo_location _location;
 
 	private double tempWeight = 0;
-	private double ratio;
 
 	public CL_Pokemon(Point3D p, int t, double v, double s, edge_data e) {
 		_type = t;
-		//	_speed = s;
 		_value = v;
 		set_edge(e);
 		_pos = p;
@@ -32,18 +37,7 @@ public class CL_Pokemon implements Comparable<CL_Pokemon> {
 		min_ro = -1;
 		_location = new nodeLocation(_pos.x(), _pos.y(), _pos.z());
 	}
-	public static CL_Pokemon init_from_json(String json) {
-		CL_Pokemon ans = null;
-		try {
-			JSONObject p = new JSONObject(json);
-			int id = p.getInt("id");
 
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}
-		return ans;
-	}
 	public String toString() {return "F:{v="+_value+", t="+_type+"}";}
 	public edge_data get_edge() {
 		return _edge;
@@ -57,52 +51,43 @@ public class CL_Pokemon implements Comparable<CL_Pokemon> {
 		return _pos;
 	}
 	public int getType() {return _type;}
-	//	public double getSpeed() {return _speed;}
 	public double getValue() {return _value;}
 
-	public double getMin_dist() {
-		return min_dist;
-	}
-
-	public void setMin_dist(double mid_dist) {
-		this.min_dist = mid_dist;
-	}
-
-	public int getMin_ro() {
-		return min_ro;
-	}
-
-	public void setMin_ro(int min_ro) {
-		this.min_ro = min_ro;
-	}
-
+	/**
+	 * this function is calculating, with the algorithm that we have written in the first part of this exercise
+	 * called "shortestPathDist" algorithm. this algorithms return an double that representing the shortest path consider
+	 * the weight of the edges from given src node with an agent to this pokemon src edge node + dest of the pokemon
+	 * edge. if the shortest path algo returns -1 it means that the pokemon and the agent are not at the same
+	 * component in the graph.
+	 * we set the answer in that case to be POSITIVE_INFINITY because we are using this field in a priority queue
+	 * that poll the pokemon with the shortest path from the agent.
+	 * @param ga = graph algorithms
+	 * @param src = src node that the agent is standing
+	 */
 	public void setTempWeight(dw_graph_algorithms ga, int src){
 		//update the distance between agent and this pokemon
 		tempWeight = ga.shortestPathDist(src, this.get_edge().getSrc()) + this.get_edge().getWeight();
+		if(tempWeight == -1) {//the pokemon not in the same component as the agent
+			tempWeight = POSITIVE_INFINITY;
+		}
 	}
+
+	/**
+	 * return the weight of the pokemon that has been calculate by the "setTempWeight" function above
+	 * @return pokemon temp weight(considering specific agent)
+	 */
 	public double getTempWeight(){
 		return this.tempWeight;
 	}
 
-	public void ratioWeightValue(){ //calculates the ratio between shortestPath from pok to agent, and pokemon value.
-		double weightR = (3.0/4)*getTempWeight();
-		double valR = (1.0/4)*(-1*getValue());
-		this.ratio = weightR + valR;
-	}
-
-	public double getRatio(){
-		return this.ratio;
-	}
 	public geo_location get_location(){
 		return this._location;
 	}
 
-	@Override
-	public int compareTo(@NotNull CL_Pokemon o) {
-		if (this.getTempWeight() - o.getTempWeight() > 0) return 1;
-		else if (this.getTempWeight() - o.getTempWeight() < 0) return -1;
-		return 0;
-	}
+	/**
+	 * Comparator for the priority queue we are using in the main function in Ex2, poll out the pokemon with the
+	 * shortest path to an agent
+	 */
 	static class pathComparator implements Comparator<CL_Pokemon> {
 
 		@Override
@@ -113,6 +98,11 @@ public class CL_Pokemon implements Comparable<CL_Pokemon> {
 		}
 	}
 
+	/**
+	 * this Comparator using by a priority queue we are using in the init function in the main game class,
+	 * polls the pokemon with the highest value, we are placing the agent in the beginning of the game near this pokemons
+	 * so that pokemons will be eaten first.
+	 */
 	static class valueComparator implements Comparator<CL_Pokemon>{
 
 		@Override
