@@ -17,14 +17,14 @@ import java.util.*;
 
 /**
  * this class is merging all classes to one working game, we used the example that supplied to us and did an improvements.
- * there is teo threads in the main function - one is running the game and the second is playing a song.
+ * there is two threads in the main function - one is running the game and the second is playing a song.
  */
 public class Ex2 implements Runnable {
 	private static MyFrame _win;
 	private static Arena _ar;
 	private static Ex2 ex2;
 	private static String agentsAfterMove;
-	private static int scenario_num=-1;
+	private static int scenario_num = -1;
 	private static directed_weighted_graph graph;
 	private static dw_graph_algorithms graphAlgo;
 	private static game_service game;
@@ -62,7 +62,7 @@ public class Ex2 implements Runnable {
 	 */
 	@Override
 	public void run() {
-		//scenario_num = 5;
+		//scenario_num = 11;
 		game = Game_Server_Ex2.getServer(scenario_num); // you have [0,23] games
 
 		//game.login(id);
@@ -199,7 +199,7 @@ public class Ex2 implements Runnable {
 	 * if the graph is un-connected, with the help of the DFS class we wrote, it is supposed to locate
 	 * each agent in different componnent in the graph.
 	 * @param game
-	 * @throws IOException
+	 *
 	 */
 		private void init (game_service game) throws IOException {
 			String poksJason = game.getPokemons();
@@ -212,6 +212,7 @@ public class Ex2 implements Runnable {
 
 			_win.show();
 			String info = game.toString();
+
 
 			if(graphAlgo.isConnected()) {
 				JSONObject line;
@@ -298,6 +299,7 @@ public class Ex2 implements Runnable {
 		public static void setId(int num){
 			id = num;
 		}
+
 
 }
 
