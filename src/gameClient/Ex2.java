@@ -31,7 +31,7 @@ public class Ex2 implements Runnable {
 		id = Integer.parseInt(args[0]);
 		scenario_num = Integer.parseInt(args[1]);
 
-		Thread player = new Thread(new SimplePlayer("resources\\pokemon.mp3"));
+		Thread player = new Thread(new SimplePlayer("data\\pokemon.mp3"));
 		Thread client = new Thread(new Ex2());
 		client.start();
 		//player.start();
@@ -197,7 +197,7 @@ public class Ex2 implements Runnable {
 		}
 
 		public static String newSave (String g){
-			String path = "C:\\Users\\Noa\\Desktop\\New folder\\ex2\\gameGraph.txt";
+			String path = "data\\gameGraph.txt";
 			try {
 				PrintWriter pw = new PrintWriter(new File(path));
 				pw.write(g);

@@ -40,17 +40,17 @@ public class MyFrame extends JFrame{
 
 	private Image dbImage;
 	private Graphics dbg;
-	private Image img = Toolkit.getDefaultToolkit().getImage("C:\\Users\\Noa\\Desktop\\New folder\\ex2\\resources\\final.jpg");
+	private Image img = Toolkit.getDefaultToolkit().getImage("data\\final.jpg");
 
 
 	//pokemons Icons
-	File skittyF = new File("resources\\skitty.png");
+	File skittyF = new File("data\\skitty.png");
 	private BufferedImage skitty = ImageIO.read(skittyF);
-	File zapdosF = new File("resources\\zapdos.png");
+	File zapdosF = new File("data\\zapdos.png");
 	private BufferedImage zapdos = ImageIO.read(zapdosF);
 
 	//agent Icon
-	File mayAgent = new File("resources\\may.png");
+	File mayAgent = new File("data\\may.png");
 	private BufferedImage may = ImageIO.read(mayAgent);
 
 		MyFrame(String a) throws IOException {
