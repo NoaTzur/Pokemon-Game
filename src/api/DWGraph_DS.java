@@ -128,7 +128,6 @@ public class DWGraph_DS implements directed_weighted_graph {
                     edgeSize--;
                 }
             }
-
             edgeSize = edgeSize - Edges.get(key).size(); // decreasing the size of the edges (delete all edges that going out from key)
             Nodes.remove(key);
             Edges.remove(key);
@@ -148,8 +147,9 @@ public class DWGraph_DS implements directed_weighted_graph {
         edge_data removedEdge = null;
         if(!Nodes.containsKey(src) || !Nodes.containsKey(dest)) return null;
         if(Edges.get(src).containsKey(dest)){
+            Integer thissrc=src;
             removedEdge = Edges.get(src).remove(dest);
-            reverseEdges.get(dest).remove(src);//src no longer has edge to dest
+            reverseEdges.get(dest).remove(thissrc);//src no longer has edge to dest
             edgeSize--;
             MC++;
         }

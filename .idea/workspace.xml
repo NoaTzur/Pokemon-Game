@@ -20,16 +20,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e69f93cf-9b19-4723-9f01-fb4bf73737ae" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/libs2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Ex2oop.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/gameClient/EdgesWithPok.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/DWGraph_Algo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/DWGraph_Algo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/tagClass.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gameClient/CL_Pokemon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameClient/CL_Pokemon.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gameClient/Ex2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameClient/Ex2.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/tests_DWGraph_Algo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/tests_DWGraph_DS.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/DWGraph_DS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/DWGraph_DS.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,6 +52,8 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_directory_selection" value="$PROJECT_DIR$/tests" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -67,34 +63,72 @@
       <recent name="gameClient" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Ex2">
-    <configuration name="Ex2" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="gameClient.Ex2" />
+  <component name="RunManager" selected="JUnit.tests_DWGraph_DS">
+    <configuration name="tests_DWGraph_Algo" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Ex2oop" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="gameClient.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="tests_DWGraph_Algo" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="algoTest.TEST12" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="tests_DWGraph_Algo2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Ex2oop" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="tests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="tests.tests_DWGraph_Algo2" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="tests_DWGraph_Algo2.saveTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Ex2oop" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="tests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="tests.tests_DWGraph_Algo2" />
+      <option name="METHOD_NAME" value="saveTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="tests_DWGraph_DS (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Ex2oop" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="algoTest" />
-      <option name="METHOD_NAME" value="TEST12" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="MAIN_CLASS_NAME" value="tests_DWGraph_DS" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="tests_DWGraph_DS" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Ex2oop" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="tests_DWGraph_DS" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Ex2" />
-        <item itemvalue="JUnit.algoTest.TEST12" />
+        <item itemvalue="JUnit.tests_DWGraph_DS" />
+        <item itemvalue="JUnit.tests_DWGraph_DS (1)" />
+        <item itemvalue="JUnit.tests_DWGraph_Algo" />
+        <item itemvalue="JUnit.tests_DWGraph_Algo2.saveTest" />
+        <item itemvalue="JUnit.tests_DWGraph_Algo2" />
       </list>
     </recent_temporary>
   </component>
@@ -122,10 +156,11 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="163" y="0" key="#Project_Structure" timestamp="1608028303967">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state x="172" y="23" key="#Project_Structure" timestamp="1608122858136">
+      <screen x="0" y="23" width="1440" height="797" />
     </state>
     <state x="163" y="0" key="#Project_Structure/0.0.1366.728@0.0.1366.728" timestamp="1608028303967" />
+    <state x="172" y="23" key="#Project_Structure/0.23.1440.797@0.23.1440.797" timestamp="1608122858136" />
     <state x="488" y="70" key="#com.intellij.ide.util.MemberChooser" timestamp="1607802831296">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -134,38 +169,54 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="413" y="111" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.728@0.0.1366.728" timestamp="1607903410757" />
-    <state width="1323" height="155" key="GridCell.Tab.0.bottom" timestamp="1608121148573">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state width="1398" height="245" key="GridCell.Tab.0.bottom" timestamp="1608145776088">
+      <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state width="1323" height="155" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1608121148573" />
-    <state width="1323" height="155" key="GridCell.Tab.0.center" timestamp="1608121148573">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state width="1398" height="245" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1608145776088" />
+    <state width="1398" height="245" key="GridCell.Tab.0.bottom/0.23.1440.797@0.23.1440.797" timestamp="1608127051551" />
+    <state width="1398" height="245" key="GridCell.Tab.0.center" timestamp="1608145776087">
+      <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state width="1323" height="155" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1608121148573" />
-    <state width="1323" height="155" key="GridCell.Tab.0.left" timestamp="1608121148572">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state width="1398" height="245" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1608145776087" />
+    <state width="1398" height="245" key="GridCell.Tab.0.center/0.23.1440.797@0.23.1440.797" timestamp="1608127051548" />
+    <state width="1398" height="245" key="GridCell.Tab.0.left" timestamp="1608145776085">
+      <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state width="1323" height="155" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1608121148572" />
-    <state width="1323" height="155" key="GridCell.Tab.0.right" timestamp="1608121148573">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state width="1398" height="245" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1608145776085" />
+    <state width="1398" height="245" key="GridCell.Tab.0.left/0.23.1440.797@0.23.1440.797" timestamp="1608127051547" />
+    <state width="1398" height="245" key="GridCell.Tab.0.right" timestamp="1608145776087">
+      <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state width="1323" height="155" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1608121148573" />
-    <state width="1323" height="90" key="GridCell.Tab.1.bottom" timestamp="1607962220495">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state width="1398" height="245" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1608145776087" />
+    <state width="1398" height="245" key="GridCell.Tab.0.right/0.23.1440.797@0.23.1440.797" timestamp="1608127051549" />
+    <state width="1398" height="304" key="GridCell.Tab.1.bottom" timestamp="1608131890326">
+      <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state width="1323" height="90" key="GridCell.Tab.1.bottom/0.0.1366.728@0.0.1366.728" timestamp="1607962220495" />
-    <state width="1323" height="90" key="GridCell.Tab.1.center" timestamp="1607962220493">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state width="1398" height="304" key="GridCell.Tab.1.bottom/0.0.1440.900@0.0.1440.900" timestamp="1608131890326" />
+    <state width="1398" height="304" key="GridCell.Tab.1.center" timestamp="1608131890325">
+      <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state width="1323" height="90" key="GridCell.Tab.1.center/0.0.1366.728@0.0.1366.728" timestamp="1607962220493" />
-    <state width="1323" height="90" key="GridCell.Tab.1.left" timestamp="1607962220493">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state width="1398" height="304" key="GridCell.Tab.1.center/0.0.1440.900@0.0.1440.900" timestamp="1608131890325" />
+    <state width="1398" height="304" key="GridCell.Tab.1.left" timestamp="1608131890324">
+      <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state width="1323" height="90" key="GridCell.Tab.1.left/0.0.1366.728@0.0.1366.728" timestamp="1607962220493" />
-    <state width="1323" height="90" key="GridCell.Tab.1.right" timestamp="1607962220495">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state width="1398" height="304" key="GridCell.Tab.1.left/0.0.1440.900@0.0.1440.900" timestamp="1608131890324" />
+    <state width="1398" height="304" key="GridCell.Tab.1.right" timestamp="1608131890325">
+      <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state width="1323" height="90" key="GridCell.Tab.1.right/0.0.1366.728@0.0.1366.728" timestamp="1607962220495" />
+    <state width="1398" height="304" key="GridCell.Tab.1.right/0.0.1440.900@0.0.1440.900" timestamp="1608131890325" />
+    <state x="522" y="206" key="chooseDestDirectoryDialog" timestamp="1608123053310">
+      <screen x="0" y="23" width="1440" height="797" />
+    </state>
+    <state x="522" y="206" key="chooseDestDirectoryDialog/0.23.1440.797@0.23.1440.797" timestamp="1608123053310" />
     <state x="387" y="256" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1608028162906">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -174,5 +225,30 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="65" y="0" key="new project wizard/0.0.1366.728@0.0.1366.728" timestamp="1607809399469" />
+    <state x="385" y="196" width="670" height="676" key="search.everywhere.popup" timestamp="1608126711408">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="385" y="196" width="670" height="676" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1608126711408" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/tests/tests_DWGraph_Algo.java</url>
+          <line>128</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/api/DWGraph_DS.java</url>
+          <line>151</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/tests/tests_DWGraph_Algo.java</url>
+          <line>186</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
