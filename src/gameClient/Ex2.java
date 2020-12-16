@@ -17,6 +17,7 @@ import java.util.PriorityQueue;
 /**
  * this class is merging all classes to one working game, we used the example that supplied to us and did an improvements.
  * there is two threads in the main function - one is running the game and the second is playing a song.
+ * this class has number of function which in the end, we hope, is a smart algorithm - we want to catch them all !!
  */
 public class Ex2 implements Runnable {
 	private static MyFrame _win;
@@ -63,14 +64,13 @@ public class Ex2 implements Runnable {
 	 */
 	@Override
 	public void run() {
-		scenario_num = 11;
+		scenario_num = 17;
 		game = Game_Server_Ex2.getServer(scenario_num); // you have [0,23] games
 
 		//game.login(id);
 		System.out.println(id);
 
 		String jasonG = game.getGraph();
-
 		String fileGraph = newSave(jasonG);
 		directed_weighted_graph gg = new DWGraph_DS(); //= game.getJava_Graph_Not_to_be_used();
 		graphAlgo = new DWGraph_Algo();
@@ -116,13 +116,12 @@ public class Ex2 implements Runnable {
 	 * Moves each of the agents along the edge (by the game.move() function, that return a jason string with the new info)
 	 * for each agent, checks if there are an destination that it need to go to, in case the destination is -1,
 	 * we need to find knew node to be its destination.
-	 * nextNode() function return the next dest and chooseNextEdge updating the new location in the server.
-	 * @param game - the info from the derver
-	 * @param graph-the scenario
+	 * nextNode() function returns the next dest for each agent, and chooseNextEdge updating the new location in the game server.
+	 * @param game - the info from the server
+	 * @param graph - game graph the user choose
 	 *
 	 */
 	private static void moveAgants(game_service game, directed_weighted_graph graph) {
-		//sleep = 100;
 		agentsAfterMove = game.move();
 		List<CL_Agent> agents = Arena.getAgents(agentsAfterMove, graph);
 		_ar.setAgents(agents);
@@ -142,14 +141,17 @@ public class Ex2 implements Runnable {
 	}
 
 	/**
-	 * this function including most of the algorithm of choosing knew pokemon.
-	 * we know this algorithm is far to be perfect, but we think its doing a fine job.
-	 * this function chooses the next destination node to each agent (with the jumping of one edge at a time)
-	 * its doing it with the help of a priority queue that polls from the pokemons list the pokemon that is
-	 * the closet to the agent, and return the next node the agent need to go to in order to approach to it.
-	 * this function is also checks weather the speed of the agent is high, and the weight of the edge is
-	 * low, and reducing in that case the sleep time of the threads so the game will make more moves to each agent
-	 * and preventing an agent to stuck on that edge.
+	 * this function is the main "clever" function of the game process.
+	 * in this function, we choose the next destination for each agent:
+	 * with the help of the "EdgesWithPok" class that we`ve created, we checks if the specific agent has a destination pokemon.
+	 * if not - we choose for him pokemon from the pokemon list. this selection is executed this way :
+	 * add all the pokemon in the list to a priority queue. the queue sorting the pokemon by the shortest path between the agent and the
+	 * pokemon. when we poll a pokemon from the queue, we know that this pokemon is the closest to this agent.
+	 * but - to be sure we does not sent agents to the same pokemon, after we poll pokemon from the queue we check if this pokemon
+	 * does not have a "parent" agent. if there is, we poll another pokemon from the queue.
+	 * if out agent has a destination pokemon, we continue to move the agent to this pokemon.
+	 * the "moving" of the agent to the chosen pokemon is done by the "toThePok" function.
+	 *
 	 * @param g - the game graph
 	 * @param ag -the agent
 	 * @return int - a new destination id node
@@ -194,6 +196,18 @@ public class Ex2 implements Runnable {
 		return ans;
 	}
 
+	/**
+	 * this function returning the next node the agent need to move to.
+	 * its doing this with the help of the EdgesWithPok class.
+	 * this function is checking 2 things - first, if the agent is arrived to the src of the pokemon edge - if true- returns the
+	 * pokemon edge destination. (agent has caught his destination pokemon, he is no longet has a destination, in the next iteration
+	 * we will choose for him new pokmeon)
+	 * ans second thing, if the agent does not arrived to the pokemon edge src, it returns the next node in the shortest path
+	 * between the agent ans the pokemon edge src.
+	 * @param ag = the agent
+	 * @param ga = graph algo - the graph of the game.
+	 * @return new destination key node for the agent.
+	 */
 	public static int toThePok(CL_Agent ag, dw_graph_algorithms ga) {
 		int ans = -1;
 
@@ -209,23 +223,12 @@ public class Ex2 implements Runnable {
 		return ans;
 	}
 
-//		List<node_data > path = ga.shortestPath(ag.getSrcNode(), chosen.getPok(ag.getID()).get_edge().getSrc());
-//		if(path.size() > 1) {
-//			ans = path.get(1).getKey();
-//		}
-//		else if (path.get(0).getKey() == ag.getSrcNode()) {
-//			ans = chosen.getPok(ag.getID()).get_edge().getDest();
-//			chosen.addPok(ag.getID(), null); // agent caught the pokemon
-//		}
-//		return ans;
-	//}
-
 	/**
 	 * this function initialized the Arena and the GUI with the information from the server, place the agent and the pokemons
 	 * in the start location.
 	 * if the graph is connected - the function is locates them near pokemons with the higher value.
 	 * if the graph is un-connected, with the help of the DFS class we wrote, it is supposed to locate
-	 * each agent in different componnent in the graph.
+	 * each agent in different component in the graph.
 	 * @param game
 	 *
 	 */

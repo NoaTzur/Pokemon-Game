@@ -95,7 +95,6 @@ public class CL_Agent {
 		}
 		return ans;
 
-
 	}
 
 	public void setCurrNode(int src) {
@@ -134,22 +133,12 @@ public class CL_Agent {
 		this._speed = v;
 	}
 
-
-	public edge_data get_curr_edge() {
-		return this._curr_edge;
-	}
-
-
 	public void setPokSrc(int src) {
 		this.pokSrc = src;
 	}
 
 	public int getPokSrc() {
 		return this.pokSrc;
-	}
-	public String get_value(){
-		String val = String.valueOf(this._value);
-		return val;
 	}
 
 }

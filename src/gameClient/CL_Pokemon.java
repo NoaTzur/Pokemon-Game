@@ -38,6 +38,14 @@ public class CL_Pokemon {
 		_location = new nodeLocation(_pos.x(), _pos.y(), _pos.z());
 	}
 
+	/**
+	 * overrides the equals Object function - checks if 2 pokemons is "equals", equals (for our algorithm) means "sitting"
+	 * on the same edge.
+	 * if the pokemon is sits in the same edge - return true
+	 * if not- false
+	 * @param o - pokemon
+	 * @return true/false
+	 */
 	@Override
 	public boolean equals(Object o){
 		if (!(o instanceof CL_Pokemon)) {
