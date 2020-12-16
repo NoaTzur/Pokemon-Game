@@ -38,6 +38,20 @@ public class CL_Pokemon {
 		_location = new nodeLocation(_pos.x(), _pos.y(), _pos.z());
 	}
 
+	@Override
+	public boolean equals(Object o){
+		if (!(o instanceof CL_Pokemon)) {
+			return false;
+		}
+		if(this.get_edge().getSrc() == ((CL_Pokemon) o).get_edge().getSrc() && this.get_edge().getDest() == ((CL_Pokemon) o).get_edge().getDest()){
+			return true;
+		}
+		if(this.get_edge().getSrc() == ((CL_Pokemon) o).get_edge().getDest() && this.get_edge().getDest() == ((CL_Pokemon) o).get_edge().getSrc()){
+			return true;
+		}
+		return false;
+	}
+
 	public String toString() {return "F:{v="+_value+", t="+_type+"}";}
 	public edge_data get_edge() {
 		return _edge;

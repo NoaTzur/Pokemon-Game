@@ -4,16 +4,15 @@ import Server.Game_Server_Ex2;
 import api.*;
 import org.json.JSONException;
 import org.json.JSONObject;
-import api.game_service;
-import api.directed_weighted_graph;
 
-import javax.swing.*;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.PriorityQueue;
 
 /**
  * this class is merging all classes to one working game, we used the example that supplied to us and did an improvements.
@@ -30,6 +29,8 @@ public class Ex2 implements Runnable {
 	private static game_service game;
 	private static int sleep;
 	private static int id;
+	private static EdgesWithPok chosenPoks = new EdgesWithPok();
+
 
 	public static void main(String[] args) {
 
@@ -37,18 +38,18 @@ public class Ex2 implements Runnable {
 		ex2 = new Ex2();
 		Thread client = new Thread(ex2);
 
-		if(args.length !=0) {
-			id = Integer.parseInt(args[0]);
-			scenario_num = Integer.parseInt(args[1]);
-		}
-		else{
-			myLogin loginScreen = new myLogin();
-			loginScreen.register(ex2);
-			myLogin.action();
-			while(scenario_num == -1) {
-				System.out.println("");
-			}
-		}
+//		if(args.length !=0) {
+//			id = Integer.parseInt(args[0]);
+//			scenario_num = Integer.parseInt(args[1]);
+//		}
+//		else{
+//			myLogin loginScreen = new myLogin();
+//			loginScreen.register(ex2);
+//			myLogin.action();
+//			while(scenario_num == -1) {
+//				System.out.println("");
+//			}
+//		}
 
 		client.start();
 		//player.start();
@@ -62,7 +63,7 @@ public class Ex2 implements Runnable {
 	 */
 	@Override
 	public void run() {
-		//scenario_num = 11;
+		scenario_num = 11;
 		game = Game_Server_Ex2.getServer(scenario_num); // you have [0,23] games
 
 		//game.login(id);
@@ -89,6 +90,7 @@ public class Ex2 implements Runnable {
 
 		while (game.isRunning()) {
 			sleep = 100;
+
 			_ar.setInfo(game.toString());
 			_ar.setTimeToEnd(game.timeToEnd());
 
@@ -120,6 +122,7 @@ public class Ex2 implements Runnable {
 	 *
 	 */
 	private static void moveAgants(game_service game, directed_weighted_graph graph) {
+		//sleep = 100;
 		agentsAfterMove = game.move();
 		List<CL_Agent> agents = Arena.getAgents(agentsAfterMove, graph);
 		_ar.setAgents(agents);
@@ -131,11 +134,10 @@ public class Ex2 implements Runnable {
 		for (int i = 0; i < agents.size(); i++) {
 			CL_Agent ag = agents.get(i);
 			int dest = ag.getNextNode();
-			if (dest == -1) {
+			if(dest == -1) {
 				dest = nextNode(graph, ag);
 				game.chooseNextEdge(ag.getID(), dest);
 			}
-
 		}
 	}
 
@@ -155,42 +157,68 @@ public class Ex2 implements Runnable {
 	private static int nextNode(directed_weighted_graph g, CL_Agent ag) {
 		int ans = -1;
 
-		List<CL_Pokemon> pok = _ar.getPokemons(); // List of all current pokemons
-		CL_Pokemon chosenPok;
 		dw_graph_algorithms ga = new DWGraph_Algo();
 		ga.init(g);
+
+		List<CL_Pokemon> pok = _ar.getPokemons(); // List of all current pokemons
 
 		for (CL_Pokemon setPok : pok) { //set the weight of each pokemon the the shortestDist to src(agent)
 			Arena.updateEdge(setPok, g);
 			setPok.setTempWeight(ga, ag.getSrcNode());
-
 		}
-		//choose the nearest pokemon to this specific agent
-		PriorityQueue<CL_Pokemon> sortedPokByWeight = new PriorityQueue<CL_Pokemon>(11, new CL_Pokemon.pathComparator());
-		sortedPokByWeight.addAll(pok);
-		chosenPok = sortedPokByWeight.poll();
 
-		if(scenario_num >20 || scenario_num == 3){
+		CL_Pokemon chosenPok;
+		if (chosenPoks.getPok(ag.getID()) != null) {
+			chosenPok = chosenPoks.getPok(ag.getID());
+		}
+		else { //agent doesnt have a pokemon destination so pick new one
+			PriorityQueue<CL_Pokemon> sortedPokByWeight = new PriorityQueue<CL_Pokemon>(20, new CL_Pokemon.pathComparator());
+			sortedPokByWeight.addAll(pok);
+			chosenPok = sortedPokByWeight.poll();
+			while (chosenPoks.containsPok(chosenPok) && !sortedPokByWeight.isEmpty()) { //there is an agent that "connect" to that pokemon
+				chosenPok = sortedPokByWeight.poll();
+			}
+			chosenPoks.addPok(ag.getID(), chosenPok);
+		}
+		ans = toThePok(ag, ga);
+
+		if(scenario_num > 20 || scenario_num == 3){
 			if(chosenPok.get_edge().getWeight() < 1.1 && ag.getSpeed() == 5) {
 				sleep = 20;
 			}
 		}
-		else if(chosenPok.get_edge().getWeight() < 0.9 && ag.getSpeed() == 5){
+		else if(chosenPok.get_edge().getWeight() < 0.7 && ag.getSpeed() == 5){
 			sleep = 20;
-		}
-
-		if (ag.getSrcNode() == chosenPok.get_edge().getSrc()) {
-			return chosenPok.get_edge().getDest();// agent arrived to pok src now sent the agent to dest
-		}
-
-		List<node_data> nextNode = ga.shortestPath(ag.getSrcNode(), chosenPok.get_edge().getSrc());
-
-		if (nextNode.size() > 1) {//the first element in the list is the src that we have sent to the algorithm, so we need to take the next
-			ans = nextNode.get(1).getKey();
 		}
 
 		return ans;
 	}
+
+	public static int toThePok(CL_Agent ag, dw_graph_algorithms ga) {
+		int ans = -1;
+
+		if(chosenPoks.getPok(ag.getID()).get_edge().getSrc() == ag.getSrcNode()) {
+			ans = chosenPoks.getPok(ag.getID()).get_edge().getDest();
+			chosenPoks.addPok(ag.getID(), null); // agent caught the pokemon, no pokemon "connected" to him right know
+		} else {
+			List<node_data> path = ga.shortestPath(ag.getSrcNode(), chosenPoks.getPok(ag.getID()).get_edge().getSrc());
+			if (path.size() > 1) {
+				ans = path.get(1).getKey();
+			}
+		}
+		return ans;
+	}
+
+//		List<node_data > path = ga.shortestPath(ag.getSrcNode(), chosen.getPok(ag.getID()).get_edge().getSrc());
+//		if(path.size() > 1) {
+//			ans = path.get(1).getKey();
+//		}
+//		else if (path.get(0).getKey() == ag.getSrcNode()) {
+//			ans = chosen.getPok(ag.getID()).get_edge().getDest();
+//			chosen.addPok(ag.getID(), null); // agent caught the pokemon
+//		}
+//		return ans;
+	//}
 
 	/**
 	 * this function initialized the Arena and the GUI with the information from the server, place the agent and the pokemons
@@ -201,104 +229,110 @@ public class Ex2 implements Runnable {
 	 * @param game
 	 *
 	 */
-		private void init (game_service game) throws IOException {
-			String poksJason = game.getPokemons();
-			_ar = new Arena();
-			_ar.setGraph(graph);
-			_ar.setPokemons(Arena.json2Pokemons(poksJason));
-			_win = new MyFrame("test Ex2");
-			_win.setSize(1000, 700);
-			_win.update(_ar);
+	private void init (game_service game) throws IOException {
+		String poksJason = game.getPokemons();
+		_ar = new Arena();
+		_ar.setGraph(graph);
+		_ar.setPokemons(Arena.json2Pokemons(poksJason));
+		_win = new MyFrame("test Ex2");
+		_win.setSize(1000, 700);
+		_win.update(_ar);
 
-			_win.show();
-			String info = game.toString();
+		_win.show();
+		String info = game.toString();
+		int rs = 0;
 
+		if(graphAlgo.isConnected()) {
+			JSONObject line;
+			try {
+				line = new JSONObject(info);
+				JSONObject gameInfo = line.getJSONObject("GameServer");
+				rs = gameInfo.getInt("agents");
 
-			if(graphAlgo.isConnected()) {
-				JSONObject line;
-				try {
-					line = new JSONObject(info);
-					JSONObject gameInfo = line.getJSONObject("GameServer");
-					int rs = gameInfo.getInt("agents");
+				ArrayList<CL_Pokemon> cl_pk = Arena.json2Pokemons(game.getPokemons());
 
-					ArrayList<CL_Pokemon> cl_pk = Arena.json2Pokemons(game.getPokemons());
+				//priorityQueue which poll the pokemon that has the grater value
+				PriorityQueue<CL_Pokemon> sortedPokByValue = new PriorityQueue<CL_Pokemon>(11, new CL_Pokemon.valueComparator());
+				sortedPokByValue.addAll(cl_pk);
 
-					//priorityQueue which poll the pokemon that has the grater value
-					PriorityQueue<CL_Pokemon> sortedPokByValue = new PriorityQueue<CL_Pokemon>(11, new CL_Pokemon.valueComparator());
-					sortedPokByValue.addAll(cl_pk);
-
-					for (int p = 0; p < cl_pk.size(); p++) {
-						Arena.updateEdge(cl_pk.get(p), graph);
-					}
-					for (int a = 0; a < rs; a++) {
-						CL_Pokemon c = sortedPokByValue.poll();
-						int node = c.get_edge().getSrc();
-						game.addAgent(node);
-					}
-				} catch (JSONException e) {
-					e.printStackTrace();
+				for (int p = 0; p < cl_pk.size(); p++) {
+					Arena.updateEdge(cl_pk.get(p), graph);
 				}
-			}
-			else{
-				JSONObject line;
-				try {
-					line = new JSONObject(info);
-					JSONObject gameInfo = line.getJSONObject("GameServer");
-					int rs = gameInfo.getInt("agents");
-
-					ArrayList<CL_Pokemon> cl_pk = Arena.json2Pokemons(game.getPokemons());
-					for (int p = 0; p < cl_pk.size(); p++) {
-						Arena.updateEdge(cl_pk.get(p), graph);
-					}
-					//dfs algorithms returns a list of integer each one representing component in the graph
-					DFS graphComponents = new DFS();
-					List<Integer> componentsNodes = graphComponents.DFSalgo(graph);
-
-					for (int a = 0; a < rs; a++) {
-						int node = componentsNodes.get(a);
-						game.addAgent(node);
-					}
-				} catch (JSONException e) {
-					e.printStackTrace();
+				for (int a = 0; a < rs; a++) {
+					CL_Pokemon c = sortedPokByValue.poll();
+					int node = c.get_edge().getSrc();
+					game.addAgent(node);
 				}
+
+
+			} catch (JSONException e) {
+				e.printStackTrace();
 			}
 		}
+		else{
+			JSONObject line;
+			try {
+				line = new JSONObject(info);
+				JSONObject gameInfo = line.getJSONObject("GameServer");
+				rs = gameInfo.getInt("agents");
+
+				ArrayList<CL_Pokemon> cl_pk = Arena.json2Pokemons(game.getPokemons());
+				for (int p = 0; p < cl_pk.size(); p++) {
+					Arena.updateEdge(cl_pk.get(p), graph);
+				}
+				//dfs algorithms returns a list of integer each one representing component in the graph
+				DFS graphComponents = new DFS();
+				List<Integer> componentsNodes = graphComponents.DFSalgo(graph);
+
+				for (int a = 0; a < rs; a++) {
+					int node = componentsNodes.get(a);
+					game.addAgent(node);
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+
+		for(int i=0; i<rs; i++){
+			chosenPoks.addPok(i, null); // init the chosen structure
+		}
+	}
 
 	/**
 	 * this function take an jason string and puts it into a file located in the workSpace folder.
 	 * @param g = the string
 	 * @return the path to the file.
 	 */
-		public static String newSave (String g){
-			String path = "data\\gameGraph.txt";
-			try {
-				PrintWriter pw = new PrintWriter(new File(path));
-				pw.write(g);
-				pw.close();
-				return path;
+	public static String newSave (String g){
+		String path = "data\\gameGraph.txt";
+		try {
+			PrintWriter pw = new PrintWriter(new File(path));
+			pw.write(g);
+			pw.close();
+			return path;
 
 
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			}
-			return null;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
 		}
+		return null;
+	}
 
 	/**
 	 * sets the scenario we are getting from the user
 	 * @param num from 0 to 23
 	 */
-		public static void setScenario(int num){
-			scenario_num = num;
-		}
+	public static void setScenario(int num){
+		scenario_num = num;
+	}
 
 	/**
 	 * sets the id of the user
 	 * @param num an id
 	 */
-		public static void setId(int num){
-			id = num;
-		}
+	public static void setId(int num){
+		id = num;
+	}
 
 
 }

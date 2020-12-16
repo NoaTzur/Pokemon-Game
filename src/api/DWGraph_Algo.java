@@ -144,8 +144,10 @@ public class DWGraph_Algo implements dw_graph_algorithms {
         node_data parent = currGraph.getNode(parents.get(dest)); // got to dest parent
 
         while (parent != null) {
-            if (!shortestPath.contains(parent))
+            if (!shortestPath.contains(parent)){
                 shortestPath.add(parent);  //adds the parents to the list
+               // break;
+            }
             if (parents.get(parent.getKey()) != null) {
                 parent = currGraph.getNode(parents.get(parent.getKey()));//get the next parent
                 if(parent.getKey() == src) {
