@@ -64,11 +64,11 @@ public class Ex2 implements Runnable {
 	 */
 	@Override
 	public void run() {
-		scenario_num = 17;
+		scenario_num = 22;
 		game = Game_Server_Ex2.getServer(scenario_num); // you have [0,23] games
 
-		//game.login(id);
-		System.out.println(id);
+		//game.login(206793267);
+
 
 		String jasonG = game.getGraph();
 		String fileGraph = newSave(jasonG);
@@ -288,9 +288,10 @@ public class Ex2 implements Runnable {
 				List<Integer> componentsNodes = graphComponents.DFSalgo(graph);
 
 				for (int a = 0; a < rs; a++) {
-					int node = componentsNodes.get(a);
+					int node = componentsNodes.get(a%componentsNodes.size());
 					game.addAgent(node);
 				}
+
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
