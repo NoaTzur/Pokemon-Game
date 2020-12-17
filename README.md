@@ -4,7 +4,7 @@ This project is a simple Pokemon game which pokemon trainers trying to catch as 
 or, in another words ... 
 ### They gotta CATCH'em all !!
 
-## How do i play ?
+## How can you play ?
 
 Please do the following steps :
 - clone this repository into some folder in your computer
