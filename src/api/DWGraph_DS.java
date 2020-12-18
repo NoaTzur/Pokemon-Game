@@ -2,6 +2,15 @@ package api;
 
 import java.util.*;
 
+/**
+ * This interface represents a directional weighted graph.
+ * The interface has a road-system or communication network in mind -
+ * and should support a large number of nodes (over 100,000).
+ * The implementation should be based on an efficient compact representation
+ * Nodes hashmap - representing all nodes in the graph
+ * Edges hashmap - representing all edges in the graph
+ * reverseEdges - representing reverse edges (will be used in the algorithms class)
+ */
 public class DWGraph_DS implements directed_weighted_graph {
 
     Map<Integer, node_data> Nodes = new HashMap<>(); //all nodes in the graph
@@ -18,7 +27,10 @@ public class DWGraph_DS implements directed_weighted_graph {
         this.edgeSize =0;
     }
 
-
+    /**
+     * copy constructor (deep copy)
+     * @param n graph to copy from
+     */
     public DWGraph_DS(directed_weighted_graph n){
 
         Iterator<node_data> it1 =  n.getV().iterator();
@@ -67,7 +79,7 @@ public class DWGraph_DS implements directed_weighted_graph {
 
     /**
      * adds a new node to the graph with the given node_data.
-     * @param n
+     * @param n - node to add
      */
     @Override
     public void addNode(node_data n) {
@@ -79,6 +91,12 @@ public class DWGraph_DS implements directed_weighted_graph {
         }
     }
 
+    /**
+     * creates an edge between src and dest with the given weight
+     * @param src - the source of the edge.
+     * @param dest - the destination of the edge.
+     * @param w - positive weight representing the cost (aka time, price, etc) between src-->dest.
+     */
     @Override
     public void connect(int src, int dest, double w) {
         if(!Nodes.containsKey(src) || !Nodes.containsKey(dest)) return;
@@ -93,18 +111,28 @@ public class DWGraph_DS implements directed_weighted_graph {
         else{
             Edges.get(src).put(dest, new edgeData(src, dest, w)); //new edge
             edgeSize++;
+            MC++;
 
 
         }
         reverseEdges.get(dest).add(src); // src is pointing on dest, in the reverse - dest is pointing on src
-        MC++;
+
     }
 
+    /**
+     * returns all graph`s nodes
+     * @return collection of nodes
+     */
     @Override
     public Collection<node_data> getV() {
         return Nodes.values();
     }
 
+    /**
+     * returns a collections of all edges from src
+     * @param node_id - src node
+     * @return collection of all edges from src
+     */
     @Override
     public Collection<edge_data> getE(int node_id) {
         if(Nodes.containsKey(node_id)){
@@ -113,6 +141,11 @@ public class DWGraph_DS implements directed_weighted_graph {
         return null;
     }
 
+    /**
+     * removes the nodes from the graph and all the edges that going through this node - O(k) k=key degree
+     * @param key - node to remove
+     * @return - the node
+     */
     @Override
     public node_data removeNode(int key) {
         node_data tempNode = null;
@@ -126,6 +159,7 @@ public class DWGraph_DS implements directed_weighted_graph {
                 if(Edges.containsKey(n)) {
                     Edges.get(n).remove(key);
                     edgeSize--;
+                    MC++;
                 }
             }
             edgeSize = edgeSize - Edges.get(key).size(); // decreasing the size of the edges (delete all edges that going out from key)
@@ -141,7 +175,12 @@ public class DWGraph_DS implements directed_weighted_graph {
 
     }
 
-
+    /**
+     * remove edge from the graph
+     * @param src - src node of the edge
+     * @param dest - dest node of the edge
+     * @return the edge
+     */
     @Override
     public edge_data removeEdge(int src, int dest) {
         edge_data removedEdge = null;
@@ -156,20 +195,36 @@ public class DWGraph_DS implements directed_weighted_graph {
         return removedEdge;
     }
 
+    /**
+     * returns the reverse edge hashmap of the given node
+     * @param key - given node
+     * @return collection of nodes keys
+     */
     public Collection<Integer> getReverseEdges(int key){
         return reverseEdges.get(key);
     }
 
+    /** Returns the number of vertices (nodes) in the graph.
+     * @return int number
+     */
     @Override
     public int nodeSize() {
         return Nodes.size();
     }
 
+    /**
+     * Returns the number of edges (assume directional graph).
+     * @return int number
+     */
     @Override
     public int edgeSize() {
         return edgeSize;
     }
 
+    /**
+     * Returns the Mode Count - for testing changes in the graph.
+     * @return int number
+     */
     @Override
     public int getMC() {
         return MC;

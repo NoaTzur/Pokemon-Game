@@ -1,0 +1,82 @@
+{
+  "Nodes": {
+    "0": {
+      "_id": 0,
+      "_msg": "",
+      "_tag": -1,
+      "_pos": {
+        "x": Infinity,
+        "y": Infinity,
+        "z": Infinity
+      },
+      "_weight": Infinity
+    },
+    "1": {
+      "_id": 1,
+      "_msg": "",
+      "_tag": -1,
+      "_pos": {
+        "x": Infinity,
+        "y": Infinity,
+        "z": Infinity
+      },
+      "_weight": Infinity
+    },
+    "2": {
+      "_id": 2,
+      "_msg": "",
+      "_tag": -1,
+      "_pos": {
+        "x": Infinity,
+        "y": Infinity,
+        "z": Infinity
+      },
+      "_weight": Infinity
+    },
+    "3": {
+      "_id": 3,
+      "_msg": "",
+      "_tag": -1,
+      "_pos": {
+        "x": Infinity,
+        "y": Infinity,
+        "z": Infinity
+      },
+      "_weight": Infinity
+    }
+  },
+  "Edges": {
+    "0": {
+      "1": {
+        "_src": 0,
+        "_dest": 1,
+        "_tag": 0,
+        "_weight": 1.3,
+        "_msg": ""
+      }
+    },
+    "1": {
+      "2": {
+        "_src": 1,
+        "_dest": 2,
+        "_tag": 0,
+        "_weight": 1.76,
+        "_msg": ""
+      }
+    },
+    "2": {},
+    "3": {}
+  },
+  "reverseEdges": {
+    "0": [],
+    "1": [
+      0
+    ],
+    "2": [
+      1
+    ],
+    "3": []
+  },
+  "MC": 6,
+  "edgeSize": 2
+}

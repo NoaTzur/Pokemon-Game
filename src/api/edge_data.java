@@ -9,12 +9,12 @@ package api;
 public interface edge_data {
     /**
      * The id of the source node of this edge.
-     * @return
+     * @return src
      */
     public int getSrc();
     /**
      * The id of the destination node of this edge
-     * @return
+     * @return dest
      */
     public int getDest();
     /**
@@ -22,19 +22,18 @@ public interface edge_data {
      */
     public double getWeight();
     /**
-     * Returns the remark (meta data) associated with this edge.
-     * @return
+     * @return the remark (meta data) associated with this edge.
      */
     public String getInfo();
     /**
      * Allows changing the remark (meta data) associated with this edge.
-     * @param s
+     * @param s - string
      */
     public void setInfo(String s);
     /**
      * Temporal data (aka color: e,g, white, gray, black)
      * which can be used be algorithms
-     * @return
+     * @return int
      */
     public int getTag();
     /**

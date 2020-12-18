@@ -1,9 +1,6 @@
 import api.*;
 import org.junit.jupiter.api.Test;
 
-import java.util.*;
-
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class tests_DWGraph_Algo {
@@ -161,49 +158,6 @@ public class tests_DWGraph_Algo {
         assertEquals(shortpath, -1);
         shortpath = ga.shortestPathDist(2, 2); // src=dest
         assertEquals(shortpath, 0);
-    }
-    @Test
-    void  shortestPathTast() {
-        directed_weighted_graph g = new DWGraph_DS();
-        dw_graph_algorithms ga = new DWGraph_Algo();
-        node_data newnode0 = new NodeData(0, 0, 0, 0);
-        node_data newnode1 = new NodeData(1, 0, 0, 0);
-        node_data newnode2 = new NodeData(2, 0, 0, 0);
-        node_data newnode3 = new NodeData(3, 0, 0, 0);
-        node_data newnode4 = new NodeData(4, 0, 0, 0);
-        g.addNode(newnode0);
-        g.addNode(newnode1);
-        g.addNode(newnode2);
-        g.addNode(newnode3);
-        g.addNode(newnode4);
-        g.connect(newnode0.getKey(), newnode2.getKey(), 1.2);
-        g.connect(newnode0.getKey(), newnode1.getKey(), 2.3);
-        g.connect(newnode1.getKey(), newnode4.getKey(), 5.6);
-        g.connect(newnode4.getKey(), newnode3.getKey(), 1.9);
-        g.connect(newnode3.getKey(), newnode0.getKey(), 2.1);
-        g.connect(newnode2.getKey(), newnode0.getKey(), 3.1);
-        ga.init(g);
-        List<node_data> listPath = new LinkedList<>();
-        listPath = ga.shortestPath(3, 0);
-        node_data newnode=new NodeData();
-        assertEquals(listPath.get(0), 3);
-        assertEquals(listPath.get(1), 0);
-
-        listPath.removeAll(listPath);
-        listPath = ga.shortestPath(4, 2);
-        assertEquals(listPath.get(0), 4);
-        assertEquals(listPath.get(1), 3);
-        assertEquals(listPath.get(2), 0);
-        assertEquals(listPath.get(3), 2);
-
-        listPath.removeAll(listPath);
-        listPath = ga.shortestPath(4, 4);
-        assertEquals(listPath.get(0), 4);
-
-        g.removeNode(0);
-        listPath.removeAll(listPath);
-        listPath = ga.shortestPath(4, 2);
-        assertNull(listPath);
     }
 
 }

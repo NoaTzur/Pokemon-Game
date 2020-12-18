@@ -51,7 +51,7 @@ public class DFS {
         return componentsNodes;
     }
 
-    public void DFSvisit(int src, directed_weighted_graph g ){
+    private void DFSvisit(int src, directed_weighted_graph g ){
         hasVisited.put(src, 1);
         g.getNode(src).setTag(counter);//mark the node with its component number
         for (edge_data edges: g.getE(src) ){

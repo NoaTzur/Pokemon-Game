@@ -14,6 +14,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.PriorityQueue;
 
+import static java.lang.Double.POSITIVE_INFINITY;
+
 /**
  * this class is merging all classes to one working game, we used the example that supplied to us and did an improvements.
  * there is two threads in the main function - one is running the game and the second is playing a song.
@@ -64,7 +66,7 @@ public class Ex2 implements Runnable {
 	 */
 	@Override
 	public void run() {
-		scenario_num = 22;
+		scenario_num = 11;
 		game = Game_Server_Ex2.getServer(scenario_num); // you have [0,23] games
 
 		//game.login(206793267);
@@ -175,12 +177,20 @@ public class Ex2 implements Runnable {
 		}
 		else { //agent doesnt have a pokemon destination so pick new one
 			PriorityQueue<CL_Pokemon> sortedPokByWeight = new PriorityQueue<CL_Pokemon>(20, new CL_Pokemon.pathComparator());
-			sortedPokByWeight.addAll(pok);
+			for (CL_Pokemon pok1: pok){
+				 if(pok1.getTempWeight() != -1){
+				 	sortedPokByWeight.add(pok1);
+				 }
+			}
 			chosenPok = sortedPokByWeight.poll();
 			while (chosenPoks.containsPok(chosenPok) && !sortedPokByWeight.isEmpty()) { //there is an agent that "connect" to that pokemon
 				chosenPok = sortedPokByWeight.poll();
 			}
+
 			chosenPoks.addPok(ag.getID(), chosenPok);
+		}
+		if(chosenPok == null){
+			return -1;
 		}
 		ans = toThePok(ag, ga);
 
@@ -216,7 +226,7 @@ public class Ex2 implements Runnable {
 			chosenPoks.addPok(ag.getID(), null); // agent caught the pokemon, no pokemon "connected" to him right know
 		} else {
 			List<node_data> path = ga.shortestPath(ag.getSrcNode(), chosenPoks.getPok(ag.getID()).get_edge().getSrc());
-			if (path.size() > 1) {
+			if (path != null && path.size() > 1) {
 				ans = path.get(1).getKey();
 			}
 		}

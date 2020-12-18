@@ -1,6 +1,11 @@
 package api;
 
-import static java.lang.Float.POSITIVE_INFINITY;
+/**
+ * This interface represents the set of operations applicable on a
+ * node (vertex) in a (directional) weighted graph.
+ */
+
+import static java.lang.Double.POSITIVE_INFINITY;
 
 public class NodeData implements node_data, Comparable<node_data> {
     private int _id;
@@ -10,6 +15,11 @@ public class NodeData implements node_data, Comparable<node_data> {
     private double _weight = POSITIVE_INFINITY;
     static int counterKey = 0;
 
+    /**
+     * override compareTo in order to sort the nodes by their weight
+     * @param o - node
+     * @return int
+     */
     @Override
     public int compareTo(node_data o) {
         if (this._weight - o.getWeight() > 0) return 1;
@@ -17,6 +27,7 @@ public class NodeData implements node_data, Comparable<node_data> {
         return 0;
     }
 
+    //constructor
 
     public NodeData(node_data n){
         this._id = n.getKey();
@@ -26,6 +37,7 @@ public class NodeData implements node_data, Comparable<node_data> {
         this._weight = n.getWeight();
 
     }
+    //constructor
 
     public NodeData(int key, String info, int tag, double weight, double x, double y, double z){
         this._id = key;
@@ -35,6 +47,7 @@ public class NodeData implements node_data, Comparable<node_data> {
         this.setLocation(thisNodeLocation);
         this.setWeight(weight);
     }
+    //constructor
 
     public NodeData(int key, double x, double y, double z){
         this._id = key;
@@ -42,13 +55,14 @@ public class NodeData implements node_data, Comparable<node_data> {
         this.setLocation(thisNodeLocation);
 
     }
-
+    //constructor
     public NodeData(){
         this._id = counterKey++;
         this._msg ="";
         this._tag = -1;
 
     }
+    //constructor
 
     public NodeData(int key){
         this._id = key;
@@ -85,12 +99,6 @@ public class NodeData implements node_data, Comparable<node_data> {
         this._pos.setX(p.x());
         this._pos.setY(p.y());
         this._pos.setZ(p.z());
-    }
-
-    public void setLocation(double x, double y, double z){
-        this._pos.setX(x);
-        this._pos.setY(y);
-        this._pos.setZ(z);
     }
 
     /**

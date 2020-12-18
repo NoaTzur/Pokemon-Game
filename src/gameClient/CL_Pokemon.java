@@ -88,9 +88,9 @@ public class CL_Pokemon {
 	 */
 	public void setTempWeight(dw_graph_algorithms ga, int src){
 		//update the distance between agent and this pokemon
-		tempWeight = ga.shortestPathDist(src, this.get_edge().getSrc()) + this.get_edge().getWeight();
-		if(tempWeight == -1) {//the pokemon not in the same component as the agent
-			tempWeight = POSITIVE_INFINITY;
+		tempWeight = ga.shortestPathDist(src, this.get_edge().getSrc()); //+ this.get_edge().getWeight();
+		if(tempWeight != -1){
+			tempWeight = tempWeight + this.get_edge().getWeight();
 		}
 	}
 

@@ -67,6 +67,7 @@ public class MyFrame extends JFrame{
 		});
 
 	}
+	//updates the arena
 	public void update(Arena ar) {
 		this._ar = ar;
 		updateFrame();
@@ -126,7 +127,7 @@ public class MyFrame extends JFrame{
 		g.drawString("Time to END: "+time+" secs",30,640);
 
 	}
-
+	//draw graph
 	private void drawGraph(Graphics g) {
 		directed_weighted_graph gg = _ar.getGraph();
 		Iterator<node_data> iter = gg.getV().iterator();
@@ -142,7 +143,7 @@ public class MyFrame extends JFrame{
 			}
 		}
 	}
-
+	//added pokemons icons to the GUI
 	private void drawPokemons(Graphics g) {
 		List<CL_Pokemon> fs = _ar.getPokemons();
 		if(fs!=null) {
@@ -169,6 +170,7 @@ public class MyFrame extends JFrame{
 			}
 		}
 	}
+	//added agents icons to the GUI and score for each agent
 	private void drawAgants(Graphics g) {
 		List<CL_Agent> ag = _ar.getAgents();
 
@@ -176,13 +178,17 @@ public class MyFrame extends JFrame{
 		while(ag!=null && i<ag.size()) {
 			geo_location c = ag.get(i).getLocation();
 			int r=8;
-			i++;
 			if(c!=null) {
-
 				geo_location fp = this._w2f.world2frame(c);
 				g.drawImage(may, (int)fp.x()-r, (int)fp.y()-r, 6*r, 6*r, this);
-				//g.drawString(ag.get(i).get_value(), (int)fp.x()-10,(int)fp.y()-10);
+				int x=(int)fp.x()-4*r, y=(int)fp.y()-6*r;
+				Font score=new Font("SansSerif", Font.BOLD, 12);
+				g.setFont(score);
+				g.setColor(Color.WHITE);
+				String Value= ag.get(i).get_value();
+				g.drawString("Score: "+ Value, x-3, y-5);
 			}
+			i++;
 		}
 	}
 	private void drawNode(node_data n, int r, Graphics g) {
@@ -200,4 +206,5 @@ public class MyFrame extends JFrame{
 		g.drawLine((int)s0.x(), (int)s0.y(), (int)d0.x(), (int)d0.y());
 
 	}
+
 }

@@ -141,4 +141,7 @@ public class CL_Agent {
 		return this.pokSrc;
 	}
 
+	public String get_value() {
+		return String.valueOf(this._value);
+	}
 }

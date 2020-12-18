@@ -102,10 +102,10 @@ public class myLogin extends JFrame implements ActionListener {
         int id = Integer.parseInt(userid);
         String scenarioTemp = scenarioT.getText();
         int scenario = Integer.parseInt(scenarioTemp);
-        if(scenario>-1 && scenario <24){
+        //if(scenario>-1 && scenario <24){
             Ex2.setScenario(scenario);
             Ex2.setId(id);
-        }
+        //}
 
     }
 }

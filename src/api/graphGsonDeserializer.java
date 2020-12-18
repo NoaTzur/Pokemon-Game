@@ -6,6 +6,9 @@ import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * takes an JSON file and creates a directed_weighted_graph.
+ */
 public class graphGsonDeserializer implements JsonDeserializer<directed_weighted_graph> {
 
     @Override

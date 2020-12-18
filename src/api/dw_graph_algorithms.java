@@ -16,24 +16,24 @@ import java.util.List;
 public interface dw_graph_algorithms {
     /**
      * Init the graph on which this set of algorithms operates on.
-     * @param g
+     * @param g graph
      */
     public void init(directed_weighted_graph g);
 
     /**
      * Return the underlying graph of which this class works.
-     * @return
+     * @return graph
      */
     public directed_weighted_graph getGraph();
     /**
      * Compute a deep copy of this weighted graph.
-     * @return
+     * @return directed_weighted_graph
      */
     public directed_weighted_graph copy();
     /**
      * Returns true if and only if (iff) there is a valid path from each node to each
      * other node. NOTE: assume directional graph (all n*(n-1) ordered pairs).
-     * @return
+     * @return true/false
      */
     public boolean isConnected();
     /**
@@ -41,7 +41,7 @@ public interface dw_graph_algorithms {
      * Note: if no such path --> returns -1
      * @param src - start node
      * @param dest - end (target) node
-     * @return
+     * @return double
      */
     public double shortestPathDist(int src, int dest);
     /**
@@ -51,7 +51,7 @@ public interface dw_graph_algorithms {
      * Note if no such path --> returns null;
      * @param src - start node
      * @param dest - end (target) node
-     * @return
+     * @return list of nodes
      */
     public List<node_data> shortestPath(int src, int dest);
 

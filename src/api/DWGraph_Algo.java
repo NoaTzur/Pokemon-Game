@@ -9,29 +9,56 @@ import com.google.gson.Gson;
 
 import static java.lang.Double.POSITIVE_INFINITY;
 
+/**
+ * This interface represents a Directed (positive) Weighted Graph Theory Algorithms including:
+ * 0. clone() - deep copy
+ * 1. init(graph)- initiate this class with given graph
+ * 2. isConnected() - checks if the graph is strongly connected
+ * 3. double shortestPathDist(int src, int dest) - based on the weight of the edges
+ * 4. List<node_data> shortestPath(int src, int dest) - a list of the nodes
+ * 5. Save(file)- the graph is saved as JSON file
+ * 6. Load(file) - from JSON file to directed_weighted_graph
+ */
+
 public class DWGraph_Algo implements dw_graph_algorithms {
 
     directed_weighted_graph currGraph = new DWGraph_DS();
     Map<Integer, Integer> parents = new HashMap<>();
-    //tagClass tags = new tagClass();
 
-
+    /**
+     * init(graph)- initiate this class with given graph
+     * @param g - given graph
+     */
     @Override
     public void init(directed_weighted_graph g) {
         currGraph = g;
     }
 
+    /**
+     * return the graph which this class work on
+     * @return directed_weighted_graph
+     */
     @Override
     public directed_weighted_graph getGraph() {
         return currGraph;
     }
 
+    /**
+     * Compute a deep copy of this weighted graph.
+     * @return directed_weighted_graph
+     */
     @Override
     public directed_weighted_graph copy() {
         directed_weighted_graph newGraph = new DWGraph_DS(currGraph);
         return newGraph;
     }
 
+    /**
+     * Returns true if and only if there is a valid path from each node to each
+     * based on regular BFS algorithm and reverse BFS.
+     * returns true if and only id BFS1 and BFS2 returns true
+     * @return true/false
+     */
     @Override
     public boolean isConnected() {
         if (currGraph.nodeSize() < 2) //graph with 0 or 1 node is linked
@@ -40,6 +67,16 @@ public class DWGraph_Algo implements dw_graph_algorithms {
         return BFS1(n) && BFS2(n);
     }
 
+    /**
+     * regular BFS algorithms,this function take an arbitrary source node, iterates through all the nodes
+     * that connected to it. to each node - if this node has not been visited yet - mark it as visited, put it in a queue, and
+     * reduce a counter that initialize with the number of nodes in the graph, by one.
+     * After the iterating all source "neighbors", this steps occurs again, with the next node from the queue.
+     * if the queue becomes empty, and there is nodes that has not been visited (counter !=0), it means the grapgh has more then 1 components (not connected) in the graph.
+     * and thats means the graph is not connected.
+     * @param n - arbitrary node
+     * @return true\false
+     */
     public boolean BFS1(int n) {
         Map<Integer, Integer> hasVisited = new HashMap<>();
         int counter = currGraph.nodeSize() - 1;
@@ -64,6 +101,14 @@ public class DWGraph_Algo implements dw_graph_algorithms {
         return false;
     }
 
+    /**
+     * this function is the sasme as BFS1, the different is it working on HashMap that represents a reverse edges.
+     * it means - if there is an edge between node 4 and 3, in the reverse HashMap, will be an edge between 3 and 4.
+     * the order reversed. in this way, we checks if the graph is connected after "reversing" the arrow of the edges !
+     * so if the graph isnt connected, this algorithm will return false
+     * @param n - arbitrary node - the same node we sent to BFS1
+     * @return true/false
+     */
     public boolean BFS2(int n) {
         Map<Integer, Integer> hasVisited = new HashMap<>();
         int counter = currGraph.nodeSize() - 1;
@@ -89,12 +134,32 @@ public class DWGraph_Algo implements dw_graph_algorithms {
         }
         return false;
     }
-
+    /**
+     * returns the length of the shortest path between src to dest (based on the edges weights)
+     * if there is no path, returns -1
+     * @param src - start node
+     * @param dest - end (target) node
+     * @return double number representing the path length
+     */
     @Override
     public double shortestPathDist(int src, int dest) {
         return Dijkstra(src, dest);
     }
 
+    /**
+     * Dijkstra algorithm - at the beginning of the code, with foreach loop, marked all nodes in the graph with Tag = INFINITY.
+     * the Tag label will represent the distance from the src node. src node Tag ==0.
+     * I used a PriorityQueue as a min-Heap, that will sort the values by the Tag label(compareTo function is added to the node_info class).
+     * first, the src node pushed into the queue. while the queue is not empty, iterate through all nodes that connected to src node,
+     * and update its Tag to = parent_node_Tag(src in the beginning) + weight of parent--connected_nodes edge.
+     * After we going through all the nodes "neighbors" - mark it as visited so it wont checks it again.
+     * to each node, we updates its parent (in HashMap that designated for it).
+     * When arriving to the dest node - return its Tag . its Tag will be the summary of the shortest distance from src to dest
+     * thanks to the priority queue that poll the nodes that holds the smallest Tag(distance).
+     * @param src - node to begin
+     * @param dest - destination node
+     * @return - dest.Tag(shortest path), -1 if there is not such path.
+     */
     public double Dijkstra(int src, int dest) {
         if(src == dest)
             return 0;
@@ -129,6 +194,18 @@ public class DWGraph_Algo implements dw_graph_algorithms {
         return -1; //there is no such path
     }
 
+    /**
+     * returns the the shortest path between src to dest - as an ordered List of nodes: src-- n1--n2--...dest.
+     * This function uses the parent HashMap that the Dijkstra() function fills.
+     * Beginning with the destination node, we going "up" in the HashMap and by its key, pull out its parent.
+     * this parent, thank to Dijkstra() has the smallest Tag(smallest distance) from all potential other parents of the dest node.
+     * In this order, it pulls the parent  till we arrive to the "final" parent - the src node.
+     * now its looks like: dest--dest.parent--dest.parent.parent-------src.
+     * with the help of reverse() function in the Collection class, the list can be reversed and this is the path.
+     * @param src - start node
+     * @param dest - end (target) node
+     * @return - list of nodes that represent the shortest path.
+     */
     @Override
     public List<node_data> shortestPath(int src, int dest) {
         List<node_data> shortestPath = new LinkedList<>();
@@ -162,12 +239,16 @@ public class DWGraph_Algo implements dw_graph_algorithms {
         return shortestPath;
     }
 
-
+    /**
+     * Save(file)- the graph is saved as JSON file
+     * @param file - the file name (may include a relative path).
+     * @return
+     */
     @Override
     public boolean save(String file) {
-        Gson myGson = new GsonBuilder().setPrettyPrinting().create();
+        Gson myGson = new GsonBuilder().setPrettyPrinting().serializeSpecialFloatingPointValues().create();
         String json = myGson.toJson(currGraph);
-        System.out.println(json);
+
 
         try {
             PrintWriter pw = new PrintWriter(new File(file));
@@ -183,6 +264,11 @@ public class DWGraph_Algo implements dw_graph_algorithms {
         return true;
     }
 
+    /**
+     * creating an graph from JSON file (with the help of graphGsonDeserializer class)
+     * @param file - file name of JSON file
+     * @return true/false
+     */
     @Override
     public boolean load(String file) {
         try {

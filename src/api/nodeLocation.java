@@ -2,6 +2,10 @@ package api;
 
 import static java.lang.Float.POSITIVE_INFINITY;
 
+/**
+ * This interface represents a geo location <x,y,z>, aka Point3D
+ */
+
 public class nodeLocation implements geo_location{
     double x,y,z;
 

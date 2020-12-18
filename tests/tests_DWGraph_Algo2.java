@@ -1,4 +1,3 @@
-package tests;
 
 import api.*;
 import org.junit.jupiter.api.Test;
@@ -48,20 +47,21 @@ public class tests_DWGraph_Algo2 {
         dw_graph_algorithms a1 = new DWGraph_Algo();
         a1.init(aa);
 
-        a1.save("C:EX2oop\\data\\test.txt");
-
+        a1.save("data\\test.txt");
 
     }
 
     @Test
     void loadTest() {
-        String file = "C:\\Users\\Noa\\Desktop\\New folder\\ex2\\src\\test.txt";
-        dw_graph_algorithms newGraph = new DWGraph_Algo();
-
-        newGraph.load(file);
-        directed_weighted_graph myGraph = newGraph.getGraph();
-        System.out.println(myGraph.nodeSize());
-        System.out.println(myGraph.edgeSize());
+        String file = "data\\A0";
+        dw_graph_algorithms graphAlgo = new DWGraph_Algo();
+        directed_weighted_graph graph = new DWGraph_DS();
+        graphAlgo.init(graph);
+        graphAlgo.load(file);
+        int nodes = graphAlgo.getGraph().nodeSize();
+        int edges = graphAlgo.getGraph().edgeSize();
+        assertEquals(11, nodes);
+        assertEquals(22, edges);
 
     }
 
@@ -107,12 +107,6 @@ public class tests_DWGraph_Algo2 {
         a1.save(fileName);
         assertTrue(a1.save(fileName));
         System.out.println("Save graph to file-BIG graph. passed  - TRUE");
-
-        dw_graph_algorithms a2 = new DWGraph_Algo();
-        a2.load(fileName);
-        assertTrue(a2.load(fileName));
-        System.out.println("Load graph from file-BIG graph. passed  - TRUE");
-
 
         long t2 = System.currentTimeMillis();
         long ans = (long)((t2-t1));
@@ -239,21 +233,6 @@ public class tests_DWGraph_Algo2 {
         assertTrue(9.8-shortestDist < EPS);
         System.out.println("Shortest path destination ex1.tests.test, number 1- passed - TRUE");
     }
-
-//    @Test
-//    void shortestPathDistTime(){ // checks the running time of shortestPathDistTime
-//        notConnectedG1();
-//        dw_graph_algorithms algo = new DWGraph_Algo();
-//        algo.init(theGraph);
-//        long t1= System.currentTimeMillis();
-//        algo.shortestPathDist(0,99999);
-//        long t2= System.currentTimeMillis();
-//        assertTrue((t2-t1)/1000.0 < 10);
-//        System.out.println("Time it takes for searching the shortest path in a BIG graph: " + (t2-t1)/1000.0 + " TRUE");
-//        List<node_info> aa = algo.shortestPath(0,10000);
-//        System.out.println("Number of nodes in path: "+aa.size());
-//    }
-//
 
 
     @Test
