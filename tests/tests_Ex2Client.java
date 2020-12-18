@@ -40,8 +40,7 @@ public class tests_Ex2Client {
         theGraph.connect(1,2,2.5);
         theGraph.connect(4,3,6.7);
         theGraph.connect(3,4,7.1);
-
-
+        
     }
 
     @Test
