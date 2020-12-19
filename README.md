@@ -6,7 +6,14 @@ or, in another words ...
 
 ## How can you play ?
 
-Please do the following steps :
+***Option 1:***
+
+- double click on the Ex2.jar
+- the Login screen will open, enter yout user-id, and to choose a scenario-number between 0 to 23.
+  (you can find picture of the Login screen down this page) 
+
+***Option 2:***
+
 - clone this repository into some folder in your computer
 - open your project through your IDE
 - run Ex2 class (you can find it in the src folder -> gameClient)
