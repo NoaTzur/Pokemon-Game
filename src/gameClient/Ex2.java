@@ -41,21 +41,20 @@ public class Ex2 implements Runnable {
 		ex2 = new Ex2();
 		Thread client = new Thread(ex2);
 
-//		if(args.length !=0) {
-//			id = Integer.parseInt(args[0]);
-//			scenario_num = Integer.parseInt(args[1]);
-//		}
-//		else{
-//			myLogin loginScreen = new myLogin();
-//			loginScreen.register(ex2);
-//			myLogin.action();
-//			while(scenario_num == -1) {
-//				System.out.println("");
-//			}
-//		}
-
+		if(args.length !=0) {
+			id = Integer.parseInt(args[0]);
+			scenario_num = Integer.parseInt(args[1]);
+		}
+		else{
+			myLogin loginScreen = new myLogin();
+			loginScreen.register(ex2);
+			myLogin.action();
+			while(scenario_num == -1) {
+				System.out.println("");
+			}
+		}
 		client.start();
-		//player.start();
+		player.start();
 	}
 
 	/**

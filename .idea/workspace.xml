@@ -1,7 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="Ex2oop:jar" />
+    </artifacts-to-build>
+  </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="b3d030c5-c67a-409c-a8f9-efb3464c3d46" name="Default Changelist" comment="" />
+    <list default="true" id="b3d030c5-c67a-409c-a8f9-efb3464c3d46" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/Ex2oop_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gameClient/Ex2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameClient/Ex2.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -11,16 +39,80 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1lqAKIwQPaUIvSHslBEiUoHMKUS" />
-  <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
   </component>
+  <component name="PropertiesComponent">
+    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
+      <changelist id="b3d030c5-c67a-409c-a8f9-efb3464c3d46" name="Default Changelist" comment="" />
       <created>1608314183256</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1608314183256</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="413" y="154" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1608394712576">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="413" y="154" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1366.728@0.0.1366.728" timestamp="1608394712576" />
+    <state x="430" y="73" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1608314379880">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="430" y="73" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1366.728@0.0.1366.728" timestamp="1608314379880" />
+    <state x="463" y="119" key="FileChooserDialogImpl" timestamp="1608314338324">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="463" y="119" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1608314338324" />
+    <state width="1323" height="77" key="GridCell.Tab.0.bottom" timestamp="1608320917165">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="77" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1608320917165" />
+    <state width="1323" height="77" key="GridCell.Tab.0.center" timestamp="1608320917165">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="77" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1608320917165" />
+    <state width="1323" height="77" key="GridCell.Tab.0.left" timestamp="1608320917165">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="77" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1608320917165" />
+    <state width="1323" height="77" key="GridCell.Tab.0.right" timestamp="1608320917165">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="77" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1608320917165" />
+    <state x="163" y="0" key="SettingsEditor" timestamp="1608394728493">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="163" y="0" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1608394728493" />
+    <state x="387" y="256" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1608314364017">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="387" y="256" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD/0.0.1366.728@0.0.1366.728" timestamp="1608314364017" />
   </component>
 </project>
