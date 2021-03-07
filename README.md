@@ -1,7 +1,7 @@
 ![github pic](https://user-images.githubusercontent.com/72066777/101950986-dff46580-3bfe-11eb-8805-7e8cae0c7a6b.jpg)
 
-This project is a simple Pokemon game which pokemon trainers trying to catch as many pokemons as possible.
-or, in another words ... 
+This project is a simple Pokemon game based on graphs. In this game pokemon trainers trying to catch as many pokemons as possible.
+ 
 ### They gotta CATCH'em all !!
 
 ## How can you play ?
